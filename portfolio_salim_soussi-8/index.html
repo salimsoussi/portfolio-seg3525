@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salim Soussi | Portfolio - Développeur iOS & Designer UI</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #c8ff00;
+            --accent-hover: #a8d900;
+            --fluo-green: #33ff66;
+            --fluo-orange: #ffb450;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --gradient-1: linear-gradient(135deg, #c8ff00 0%, #33ff66 100%);
+            --gradient-fluo: linear-gradient(135deg, #33ff66 0%, #c8ff00 50%, #ffb450 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 { font-family: 'Syne', sans-serif; font-weight: 700; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--primary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+        .navbar {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--text-primary) !important; }
+        .navbar-brand span { color: var(--accent); }
+        .nav-link { color: var(--text-secondary) !important; font-weight: 500; margin: 0 0.75rem; transition: color 0.3s ease; }
+        .nav-link:hover { color: var(--accent) !important; }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 0 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(200, 255, 0, 0.08) 0%, transparent 70%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(51, 255, 102, 0.1);
+            border: 1px solid rgba(51, 255, 102, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--fluo-green);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-badge .dot { width: 8px; height: 8px; background: var(--fluo-green); border-radius: 50%; animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.3s forwards; opacity: 0; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-primary-custom {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary-custom:hover {
+            background: var(--accent-hover);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(200, 255, 0, 0.3);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-outline-custom:hover { border-color: var(--accent); color: var(--accent); }
+
+        section { padding: 5rem 0; }
+        .section-label { color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; }
+        .section-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem; }
+
+        .about { background: var(--secondary); }
+        .about-text { font-size: 1.05rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(200, 255, 0, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(200, 255, 0, 0.1);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover { border-color: var(--accent); transform: translateX(5px); }
+        .skill-item i { color: var(--accent); }
+
+        .process { background: var(--primary); }
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+
+        .process-card {
+            background: var(--secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .process-card:hover { transform: translateY(-5px); border-color: rgba(200, 255, 0, 0.2); }
+
+        .process-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--accent);
+            color: var(--primary);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .process-icon { font-size: 2rem; color: var(--accent); margin-bottom: 1rem; }
+        .process-title { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .process-text { color: var(--text-secondary); font-size: 0.9rem; }
+
+        .projects { background: var(--secondary); }
+
+        .project-card {
+            background: var(--primary);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            margin-bottom: 2rem;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(200, 255, 0, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image { height: 250px; overflow: hidden; position: relative; }
+        .project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .project-card:hover .project-image img { transform: scale(1.05); }
+
+        .project-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .project-content { padding: 1.5rem; }
+        .project-title { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .project-description { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .project-tag { background: rgba(200, 255, 0, 0.1); color: var(--accent); padding: 0.3rem 0.7rem; border-radius: 50px; font-size: 0.75rem; }
+
+        .fluo-feature { background: var(--primary); position: relative; overflow: hidden; }
+
+        .fluo-feature::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(51, 255, 102, 0.08) 0%, transparent 70%);
+        }
+
+        .fluo-icon { width: 80px; height: 80px; border-radius: 20px; margin-bottom: 1.5rem; box-shadow: 0 15px 40px rgba(51, 255, 102, 0.3); }
+
+        .fluo-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: var(--gradient-fluo);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .fluo-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(51, 255, 102, 0.1);
+            border: 1px solid rgba(51, 255, 102, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            color: var(--fluo-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .fluo-status .dot { width: 6px; height: 6px; background: var(--fluo-green); border-radius: 50%; animation: pulse 2s infinite; }
+
+        .screenshots-scroll { display: flex; gap: 1.5rem; overflow-x: auto; padding: 2rem 0; scroll-snap-type: x mandatory; }
+        .screenshots-scroll::-webkit-scrollbar { height: 6px; }
+        .screenshots-scroll::-webkit-scrollbar-track { background: var(--primary); }
+        .screenshots-scroll::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        .screenshot-item { flex: 0 0 auto; scroll-snap-align: start; position: relative; padding-bottom: 35px; }
+
+        .iphone-frame {
+            position: relative;
+            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #0d0d0d 100%);
+            border-radius: 45px;
+            padding: 8px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(60, 60, 60, 0.8);
+            transition: all 0.4s ease;
+        }
+
+        .screenshot-item:hover .iphone-frame {
+            transform: scale(1.02) translateY(-5px);
+            box-shadow: 0 40px 70px rgba(51, 255, 102, 0.2), 0 0 0 2px rgba(51, 255, 102, 0.4);
+        }
+
+        .iphone-frame::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 22px;
+            background: #000;
+            border-radius: 15px;
+            z-index: 10;
+        }
+
+        .iphone-screen { border-radius: 38px; overflow: hidden; background: #000; }
+        .iphone-screen img { height: 420px; width: auto; display: block; }
+
+        .screenshot-label {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            color: var(--accent);
+            border: 1px solid rgba(200, 255, 0, 0.2);
+        }
+
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; }
+
+        .feature-card {
+            background: var(--secondary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover { border-color: rgba(51, 255, 102, 0.3); }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-fluo);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon i { color: var(--primary); font-size: 1.2rem; }
+        .feature-title { font-size: 1rem; margin-bottom: 0.3rem; }
+        .feature-text { color: var(--text-secondary); font-size: 0.85rem; }
+
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+
+        .tech-item {
+            background: rgba(200, 255, 0, 0.05);
+            border: 1px solid rgba(200, 255, 0, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover { background: var(--accent); color: var(--primary); }
+
+        .reflection { background: var(--secondary); }
+
+        .reflection-content {
+            background: var(--primary);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .reflection-content::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 5rem;
+            color: var(--accent);
+            opacity: 0.2;
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .reflection-text { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem; }
+        .reflection-text:last-of-type { margin-bottom: 0; }
+
+        .contact { background: var(--primary); }
+
+        .contact-card {
+            background: var(--secondary);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .contact-title { font-size: clamp(1.5rem, 3vw, 2.5rem); margin-bottom: 1rem; }
+        .contact-text { color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+        .contact-email {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover { color: var(--accent-hover); }
+
+        .social-links { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover { background: var(--accent); color: var(--primary); transform: translateY(-3px); }
+
+        footer {
+            background: var(--secondary);
+            padding: 1.5rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer p { color: var(--text-secondary); font-size: 0.85rem; }
+        footer span { color: var(--accent); }
+
+        @media (max-width: 991px) {
+            .hero { text-align: center; }
+            .hero-description { margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .iphone-screen img { height: 350px; }
+        }
+
+        @media (max-width: 576px) {
+            section { padding: 3rem 0; }
+            .reflection-content { padding: 2rem; }
+            .contact-card { padding: 2rem; }
+            .iphone-screen img { height: 300px; }
+        }
+
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Salim<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color: rgba(255,255,255,0.2);">
+                <i class="bi bi-list" style="color: #fff; font-size: 1.5rem;"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#accueil">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#apropos">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#processus">Processus</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projets">Projets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#reflexion">Réflexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-badge">
+                        <span class="dot"></span>
+                        Disponible pour de nouvelles opportunités
+                    </div>
+                    <h1>Je crée des<br><span class="highlight">expériences</span><br>digitales uniques</h1>
+                    <p class="hero-description">Développeur iOS & Designer UI passionné par la création d'applications qui allient esthétique et fonctionnalité pour résoudre de vrais problèmes.</p>
+                    <div class="hero-buttons">
+                        <a href="#projets" class="btn-primary-custom">Voir mes projets <i class="bi bi-arrow-right"></i></a>
+                        <a href="#contact" class="btn-outline-custom">Me contacter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="apropos">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <p class="section-label">À propos</p>
+                    <h2 class="section-title">Salim Soussi</h2>
+                    <p class="about-text">Étudiant en génie logiciel à l'Université d'Ottawa, je suis passionné par le développement d'applications iOS et la conception d'interfaces utilisateur intuitives.</p>
+                    <p class="about-text">Depuis <strong style="color: var(--fluo-orange);">2020</strong>, je travaille sur divers projets personnels qui m'ont permis de développer une expertise en Swift, SwiftUI et en design d'interface. Je crois que la technologie doit être au service de l'humain.</p>
+                    <p class="about-text">Mon approche combine créativité et rigueur technique pour créer des produits qui ont un réel impact sur la vie des utilisateurs.</p>
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">Compétences</h4>
+                    <div class="skills-grid">
+                        <div class="skill-item"><i class="bi bi-apple"></i><span>iOS / Swift</span></div>
+                        <div class="skill-item"><i class="bi bi-code-slash"></i><span>SwiftUI</span></div>
+                        <div class="skill-item"><i class="bi bi-palette"></i><span>UI/UX Design</span></div>
+                        <div class="skill-item"><i class="bi bi-figma"></i><span>Figma</span></div>
+                        <div class="skill-item"><i class="bi bi-cloud"></i><span>Firebase</span></div>
+                        <div class="skill-item"><i class="bi bi-git"></i><span>Git / GitHub</span></div>
+                        <div class="skill-item"><i class="bi bi-filetype-html"></i><span>HTML/CSS</span></div>
+                        <div class="skill-item"><i class="bi bi-bootstrap"></i><span>Bootstrap</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="processus">
+        <div class="container">
+            <div class="text-center">
+                <p class="section-label">Comment je travaille</p>
+                <h2 class="section-title">Mon processus de conception</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Une approche méthodique et centrée sur l'utilisateur pour créer des expériences digitales mémorables.</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-card">
+                    <span class="process-number">1</span>
+                    <i class="bi bi-search process-icon"></i>
+                    <h3 class="process-title">Recherche</h3>
+                    <p class="process-text">J'analyse les besoins des utilisateurs, étudie la concurrence et définis les objectifs du projet pour comprendre le contexte.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-number">2</span>
+                    <i class="bi bi-lightbulb process-icon"></i>
+                    <h3 class="process-title">Idéation</h3>
+                    <p class="process-text">Je génère des idées, crée des wireframes et explore différentes solutions pour répondre aux problèmes identifiés.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-number">3</span>
+                    <i class="bi bi-brush process-icon"></i>
+                    <h3 class="process-title">Design</h3>
+                    <p class="process-text">Je conçois des maquettes haute-fidélité en respectant les principes de design visuel et d'accessibilité.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-number">4</span>
+                    <i class="bi bi-code-square process-icon"></i>
+                    <h3 class="process-title">Développement</h3>
+                    <p class="process-text">Je transforme les designs en code propre et performant, en testant régulièrement pour assurer la qualité.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projets">
+        <div class="container">
+            <div class="text-center mb-5">
+                <p class="section-label">Projet principal</p>
+                <h2 class="section-title">Mon projet</h2>
+            </div>
+            <div class="row justify-content-center">
+                <!-- Project: Fluo Lime -->
+                <div class="col-lg-8">
+                    <div class="project-card">
+                        <div class="project-image" style="background: linear-gradient(135deg, #33ff66 0%, #c8ff00 100%); height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <img src="fluo-icon.png" alt="Fluo Lime Logo" style="width: 150px; height: 150px; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+                            <span class="project-badge">iOS App</span>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Fluo Lime</h3>
+                            <p class="project-description">Application de santé mentale combinant journaling, mood tracking et communauté bienveillante. En développement depuis 2020, bientôt disponible sur l'App Store.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">Swift</span>
+                                <span class="project-tag">SwiftUI</span>
+                                <span class="project-tag">Firebase</span>
+                                <span class="project-tag">UI Design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fluo Lime Feature Section -->
+    <section class="fluo-feature">
+        <div class="container">
+            <div class="row align-items-center mb-4">
+                <div class="col-lg-6">
+                    <img src="fluo-icon.png" alt="Fluo Lime Icon" class="fluo-icon">
+                    <h2 class="fluo-title">"FLUO-LIME"</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Mental Healthcare App</p>
+                    <div class="fluo-status"><span class="dot"></span> Bientôt sur l'App Store</div>
+                    <p style="color: var(--text-secondary); margin-top: 1.5rem; line-height: 1.7;">
+                        Mon projet principal depuis 2020. Fluo Lime est un espace personnel de santé mentale qui combine journaling, suivi d'humeur et une communauté bienveillante pour aider les utilisateurs à comprendre et exprimer leurs émotions.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-item">Swift</span>
+                        <span class="tech-item">SwiftUI</span>
+                        <span class="tech-item">Firebase</span>
+                        <span class="tech-item">MVVM</span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-journal-text"></i></div>
+                            <h4 class="feature-title">Journaling</h4>
+                            <p class="feature-text">Journaux personnels avec mood tags</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-emoji-smile"></i></div>
+                            <h4 class="feature-title">Mood Tracker</h4>
+                            <p class="feature-text">16 types de trackers personnalisés</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-chat-heart"></i></div>
+                            <h4 class="feature-title">Freethinks</h4>
+                            <p class="feature-text">Pensées libres avec tags colorés</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-people"></i></div>
+                            <h4 class="feature-title">Communauté</h4>
+                            <p class="feature-text">Partage et support entre utilisateurs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Screenshots -->
+            <div class="mt-5">
+                <h4 class="text-center mb-4" style="color: var(--accent);">Aperçu de l'application</h4>
+                <div class="screenshots-scroll">
+                    <div class="screenshot-item">
+                        <div class="iphone-frame"><div class="iphone-screen"><img src="fluo-feed.jpg" alt="Feed"></div></div>
+                        <span class="screenshot-label">Feed</span>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="iphone-frame"><div class="iphone-screen"><img src="fluo-profile.jpg" alt="Profil"></div></div>
+                        <span class="screenshot-label">Profil</span>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="iphone-frame"><div class="iphone-screen"><img src="fluo-freethink-list.jpg" alt="Freethink"></div></div>
+                        <span class="screenshot-label">Freethink</span>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="iphone-frame"><div class="iphone-screen"><img src="fluo-mood-tracker.jpg" alt="Mood Tracker"></div></div>
+                        <span class="screenshot-label">Mood Tracker</span>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="iphone-frame"><div class="iphone-screen"><img src="fluo-journal-creator.jpg" alt="Journal"></div></div>
+                        <span class="screenshot-label">Journal</span>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="iphone-frame"><div class="iphone-screen"><img src="fluo-calendar.jpg" alt="Calendrier"></div></div>
+                        <span class="screenshot-label">Calendrier</span>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="iphone-frame"><div class="iphone-screen"><img src="fluo-notifications.jpg" alt="Notifications"></div></div>
+                        <span class="screenshot-label">Notifications</span>
+                    </div>
+                    <div class="screenshot-item">
+                        <div class="iphone-frame"><div class="iphone-screen"><img src="fluo-search.jpg" alt="Recherche"></div></div>
+                        <span class="screenshot-label">Recherche</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reflection Section -->
+    <section class="reflection" id="reflexion">
+        <div class="container">
+            <div class="text-center mb-4">
+                <p class="section-label">Réflexion personnelle</p>
+                <h2 class="section-title">Ce qui me définit</h2>
+            </div>
+            <div class="reflection-content">
+                <p class="reflection-text">
+                    Je crois profondément que la technologie doit être au service de l'humain. Chaque ligne de code que j'écris, chaque interface que je conçois vise à simplifier la vie des utilisateurs et à créer des moments de joie dans leur quotidien.
+                </p>
+                <p class="reflection-text">
+                    Mon parcours en génie logiciel m'a appris l'importance de la rigueur et de la méthode, mais c'est ma passion pour le design qui me pousse à aller au-delà du fonctionnel pour créer des expériences véritablement mémorables.
+                </p>
+                <p class="reflection-text">
+                    Travailler sur Fluo Lime depuis 2020 m'a particulièrement sensibilisé aux enjeux de santé mentale. Je suis convaincu que les applications peuvent avoir un impact positif réel sur le bien-être des gens, à condition d'être conçues avec empathie et attention.
+                </p>
+                <p class="reflection-text">
+                    Je suis un apprenant perpétuel, toujours curieux de découvrir de nouvelles technologies et méthodologies. Je valorise le travail d'équipe et je crois que les meilleures solutions émergent de la collaboration et de l'échange d'idées.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-card position-relative">
+                <p class="section-label">Contact</p>
+                <h2 class="contact-title">Travaillons ensemble</h2>
+                <p class="contact-text">Vous avez un projet en tête ? Je suis toujours ouvert à discuter de nouvelles opportunités.</p>
+                <a href="mailto:ssous046@uottawa.ca" class="contact-email">ssous046@uottawa.ca <i class="bi bi-arrow-right"></i></a>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="bi bi-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Salim Soussi. Fait avec <span>♥</span> à Ottawa.</p>
+        </div>
+    </footer>
+
+    <!
