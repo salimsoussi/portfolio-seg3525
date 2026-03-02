@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeloFix - Atelier de Réparation de Vélos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1B5E20;
+            --primary-light: #4CAF50;
+            --primary-dark: #0D3B13;
+            --accent: #FF6F00;
+            --accent-light: #FFA040;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .navbar {
+            background-color: var(--primary-dark);
+            padding: 0.8rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #fff !important;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-brand i {
+            color: var(--accent);
+            margin-right: 6px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.85) !important;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #fff !important;
+        }
+
+        .btn-book {
+            background-color: var(--accent);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .btn-book:hover {
+            background-color: var(--accent-light);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--primary-light);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+        }
+
+        #home {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #home::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(255,111,0,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+
+        .hero-badge i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .hero-img-wrapper {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-img-wrapper img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.05rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .text-center .section-line {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .bg-light-custom {
+            background-color: #f0f4f0;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            height: 100%;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border-color: var(--primary-light);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .service-icon i {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .service-card h5 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-card .price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 1rem;
+        }
+
+        .service-card .duration {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        .service-card .description {
+            color: var(--gray);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .expert-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e8e8e8;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .expert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+
+        .expert-img {
+            height: 280px;
+            background: linear-gradient(135deg, #ddd, #bbb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #fff;
+        }
+
+        .expert-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .expert-card h5 {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .expert-card .role {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .expert-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .info-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            height: 100%;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .info-card h5 {
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .review-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #e8e8e8;
+            height: 100%;
+        }
+
+        .review-card .stars {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .review-card p {
+            color: var(--gray);
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .review-card .reviewer {
+            font-weight: 700;
+            color: var(--dark);
+            margin-top: 1rem;
+        }
+
+        .faq-item {
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #e8e8e8;
+            overflow: hidden;
+        }
+
+        .faq-item .accordion-button {
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background: #fff;
+            box-shadow: none;
+        }
+
+        .faq-item .accordion-button:not(.collapsed) {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .faq-item .accordion-button:not(.collapsed)::after {
+            filter: brightness(0) invert(1);
+        }
+
+        .booking-section {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: #fff;
+        }
+
+        .booking-form {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2.5rem;
+            color: var(--dark);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .booking-form .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .booking-form .form-control,
+        .booking-form .form-select {
+            border-radius: 10px;
+            padding: 0.65rem 1rem;
+            border: 1px solid #ddd;
+            font-size: 0.95rem;
+        }
+
+        .booking-form .form-control:focus,
+        .booking-form .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(76,175,80,0.15);
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .step-dot.completed {
+            background: var(--primary-light);
+            color: #fff;
+        }
+
+        .step-dot.inactive {
+            background: #e0e0e0;
+            color: var(--gray);
+        }
+
+        .step-line {
+            width: 40px;
+            height: 2px;
+            background: #e0e0e0;
+            align-self: center;
+        }
+
+        .step-line.completed {
+            background: var(--primary-light);
+        }
+
+        .booking-step { display: none; }
+        .booking-step.active { display: block; }
+
+        .map-placeholder {
+            width: 100%;
+            height: 350px;
+            background: #e0e0e0;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+
+        .map-placeholder iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        .transit-info {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid #e8e8e8;
+            margin-bottom: 1rem;
+        }
+
+        .transit-info i {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-right: 0.75rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 3rem 0 1.5rem;
+        }
+
+        footer h6 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            margin-right: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .confirmation-box {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .confirmation-box .check-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .confirmation-box .check-icon i {
+            font-size: 2.5rem;
+            color: #fff;
+        }
+
+        .lang-switch {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            border-radius: 6px;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .lang-switch:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-badges { flex-direction: column; gap: 0.75rem; }
+            .section-title { font-size: 1.8rem; }
+            #home { min-height: auto; padding: 6rem 0 3rem; }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+        .back-to-top.show { display: flex; }
+        .back-to-top:hover { background: var(--primary-light); transform: translateY(-3px); }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="#home"><i class="bi bi-bicycle"></i>VeloFix</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color: rgba(255,255,255,0.3);">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item"><a class="nav-link active" href="#home">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#team">Notre Équipe</a></li>
+                <li class="nav-item"><a class="nav-link" href="#reviews">Avis</a></li>
+                <li class="nav-item"><a class="nav-link" href="#location">Localisation</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                <li class="nav-item ms-2"><a class="btn btn-book" href="#booking">Réserver</a></li>
+                <li class="nav-item">
+                    <select class="lang-switch" id="langSwitch" onchange="switchLang(this.value)">
+                        <option value="fr">FR</option>
+                        <option value="en">EN</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section id="home">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content">
+                <h1>Votre vélo mérite<br>le <span>meilleur soin</span></h1>
+                <p>Atelier de réparation professionnel situé au cœur d'Ottawa. Service rapide, expertise reconnue, prix transparents.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="#booking" class="btn btn-book btn-lg">Prendre Rendez-vous</a>
+                    <a href="#services" class="btn btn-outline-light btn-lg" style="border-radius:50px; font-weight:600;">Nos Services</a>
+                </div>
+                <div class="hero-badges">
+                    <div class="hero-badge"><i class="bi bi-clock"></i> Lun-Ven 8h-18h</div>
+                    <div class="hero-badge"><i class="bi bi-geo-alt"></i> 245 rue Rideau, Ottawa</div>
+                    <div class="hero-badge"><i class="bi bi-star-fill"></i> 4.8/5 (120+ avis)</div>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block hero-img-wrapper">
+                <div style="width:100%;max-width:480px;height:400px;background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.05));border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto;border:1px solid rgba(255,255,255,0.1);">
+                    <div style="text-align:center;color:rgba(255,255,255,0.6);">
+                        <i class="bi bi-bicycle" style="font-size:6rem;color:var(--accent);"></i>
+                        <p style="margin-top:1rem;font-size:1.1rem;">VeloFix - Ottawa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-line"></div>
+            <h2 class="section-title">Nos Services</h2>
+            <p class="section-subtitle">Des services professionnels pour tous types de vélos</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-wrench-adjustable"></i></div>
+                    <h5>Mise au point complète</h5>
+                    <p class="description">Inspection complète, ajustement des freins, dérailleur, roues, lubrification de la chaîne et vérification de la pression des pneus.</p>
+                    <div class="price">75$</div>
+                    <div class="duration"><i class="bi bi-clock"></i> Durée : ~1h30</div>
+                    <a href="#booking" class="btn btn-primary-custom btn-sm mt-3">Réserver</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-gear"></i></div>
+                    <h5>Réparation de freins</h5>
+                    <p class="description">Remplacement des plaquettes, ajustement des câbles, alignement des étriers et vérification du système de freinage complet.</p>
+                    <div class="price">45$</div>
+                    <div class="duration"><i class="bi bi-clock"></i> Durée : ~45 min</div>
+                    <a href="#booking" class="btn btn-primary-custom btn-sm mt-3">Réserver</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-arrow-repeat"></i></div>
+                    <h5>Changement de pneus</h5>
+                    <p class="description">Remplacement de pneus et chambres à air, vérification de l'usure des jantes et équilibrage des roues.</p>
+                    <div class="price">35$</div>
+                    <div class="duration"><i class="bi bi-clock"></i> Durée : ~30 min</div>
+                    <a href="#booking" class="btn btn-primary-custom btn-sm mt-3">Réserver</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-link-45deg"></i></div>
+                    <h5>Réparation de chaîne</h5>
+                    <p class="description">Remplacement ou réparation de la chaîne, nettoyage du système de transmission et lubrification complète.</p>
+                    <div class="price">40$</div>
+                    <div class="duration"><i class="bi bi-clock"></i> Durée : ~40 min</div>
+                    <a href="#booking" class="btn btn-primary-custom btn-sm mt-3">Réserver</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-bullseye"></i></div>
+                    <h5>Ajustement du dérailleur</h5>
+                    <p class="description">Réglage précis du dérailleur avant et arrière, remplacement des câbles si nécessaire et test de passage de vitesses.</p>
+                    <div class="price">50$</div>
+                    <div class="duration"><i class="bi bi-clock"></i> Durée : ~1h</div>
+                    <a href="#booking" class="btn btn-primary-custom btn-sm mt-3">Réserver</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon"><i class="bi bi-shield-check"></i></div>
+                    <h5>Inspection de sécurité</h5>
+                    <p class="description">Vérification complète de tous les composants de sécurité : freins, pneus, lumières, réflecteurs et structure du cadre.</p>
+                    <div class="price">25$</div>
+                    <div class="duration"><i class="bi bi-clock"></i> Durée : ~20 min</div>
+                    <a href="#booking" class="btn btn-primary-custom btn-sm mt-3">Réserver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="team" class="bg-light-custom">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-line"></div>
+            <h2 class="section-title">Notre Équipe</h2>
+            <p class="section-subtitle">Des mécaniciens passionnés et expérimentés</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="expert-card">
+                    <div class="expert-img" style="background: linear-gradient(135deg, #2E7D32, #66BB6A);">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5>Marc Dupont</h5>
+                        <div class="role">Mécanicien Senior</div>
+                        <p>15 ans d'expérience. Spécialiste en vélos de route et vélos de montagne. Certifié Shimano et SRAM.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="expert-card">
+                    <div class="expert-img" style="background: linear-gradient(135deg, #1565C0, #42A5F5);">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5>Sophie Tremblay</h5>
+                        <div class="role">Mécanicienne & Consultante</div>
+                        <p>10 ans d'expérience. Experte en vélos électriques et en ajustement biomécanique pour un confort optimal.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="expert-card">
+                    <div class="expert-img" style="background: linear-gradient(135deg, #E65100, #FF9800);">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5>Julien Roy</h5>
+                        <div class="role">Mécanicien Junior</div>
+                        <p>3 ans d'expérience. Passionné de vélos urbains et de cyclisme quotidien. Spécialiste en entretien préventif.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="reviews">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-line"></div>
+            <h2 class="section-title">Avis Clients</h2>
+            <p class="section-subtitle">Ce que nos clients disent de nous</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p>"Service exceptionnel ! Marc a réparé mes freins en moins d'une heure. Le prix est très raisonnable et le travail est impeccable. Je recommande fortement."</p>
+                    <div class="reviewer">Alexandre P.</div>
+                    <small class="text-muted">Mise au point complète</small>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                    </div>
+                    <p>"Sophie est incroyable ! Elle m'a donné des conseils pour mieux entretenir mon vélo électrique. Très professionnelle et accueillante."</p>
+                    <div class="reviewer">Marie-Claire L.</div>
+                    <small class="text-muted">Réparation vélo électrique</small>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="review-card">
+                    <div class="stars">
+                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                    </div>
+                    <p>"Bon service rapide. J'ai fait changer mes pneus et ajuster mon dérailleur. Tout fonctionne parfaitement. Le seul petit bémol c'est l'attente sans rendez-vous."</p>
+                    <div class="reviewer">Thomas G.</div>
+                    <small class="text-muted">Changement de pneus</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="booking" class="booking-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center text-white mb-4">
+                    <h2 class="section-title" style="color:#fff;">Prendre Rendez-vous</h2>
+                    <p style="color:rgba(255,255,255,0.7);">Réservez en quelques clics</p>
+                </div>
+                <div class="booking-form" id="bookingForm">
+                    <div class="step-indicator" id="stepIndicator">
+                        <div class="step-dot active" id="dot1">1</div>
+                        <div class="step-line" id="line1"></div>
+                        <div class="step-dot inactive" id="dot2">2</div>
+                        <div class="step-line" id="line2"></div>
+                        <div class="step-dot inactive" id="dot3">3</div>
+                        <div class="step-line" id="line3"></div>
+                        <div class="step-dot inactive" id="dot4">4</div>
+                    </div>
+
+                    <div class="booking-step active" id="step1">
+                        <h5 class="mb-3" style="font-weight:700;">Étape 1 : Choisir un service</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Service</label>
+                            <select class="form-select" id="serviceSelect">
+                                <option value="">-- Sélectionnez un service --</option>
+                                <option value="Mise au point complète - 75$">Mise au point complète - 75$</option>
+                                <option value="Réparation de freins - 45$">Réparation de freins - 45$</option>
+                                <option value="Changement de pneus - 35$">Changement de pneus - 35$</option>
+                                <option value="Réparation de chaîne - 40$">Réparation de chaîne - 40$</option>
+                                <option value="Ajustement du dérailleur - 50$">Ajustement du dérailleur - 50$</option>
+                                <option value="Inspection de sécurité - 25$">Inspection de sécurité - 25$</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mécanicien</label>
+                            <select class="form-select" id="mechanicSelect">
+                                <option value="">-- Sélectionnez un mécanicien --</option>
+                                <option value="Marc Dupont">Marc Dupont - Mécanicien Senior</option>
+                                <option value="Sophie Tremblay">Sophie Tremblay - Mécanicienne</option>
+                                <option value="Julien Roy">Julien Roy - Mécanicien Junior</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Notes additionnelles</label>
+                            <textarea class="form-control" id="notesInput" rows="2" placeholder="Ex: Mon vélo fait un bruit étrange quand je pédale..."></textarea>
+                        </div>
+                        <button class="btn btn-primary-custom w-100" onclick="goToStep(2)">Suivant</button>
+                    </div>
+
+                    <div class="booking-step" id="step2">
+                        <h5 class="mb-3" style="font-weight:700;">Étape 2 : Date et heure</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control" id="dateInput">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Heure</label>
+                            <select class="form-select" id="timeSelect">
+                                <option value="">-- Sélectionnez une heure --</option>
+                                <option value="08:00">08:00</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary w-50" onclick="goToStep(1)">Précédent</button>
+                            <button class="btn btn-primary-custom w-50" onclick="goToStep(3)">Suivant</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-step" id="step3">
+                        <h5 class="mb-3" style="font-weight:700;">Étape 3 : Vos Informations</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="firstNameInput" placeholder="Votre prénom">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nom</label>
+                                <input type="text" class="form-control" id="lastNameInput" placeholder="Votre nom">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Courriel</label>
+                                <input type="email" class="form-control" id="emailInput" placeholder="votre@courriel.com">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="phoneInput" placeholder="(613) 000-0000">
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 mt-3">
+                            <button class="btn btn-outline-secondary w-50" onclick="goToStep(2)">Précédent</button>
+                            <button class="btn btn-primary-custom w-50" onclick="showSummary()">Vérifier</button>
+                        </div>
+                    </div>
+
+                    <div class="booking-step" id="step4">
+                        <div id="summaryView">
+                            <h5 class="mb-3" style="font-weight:700;">Étape 4 : Vérification</h5>
+                            <div class="p-3 rounded mb-3" style="background:#f8f9fa;">
+                                <p class="mb-1"><strong>Service :</strong> <span id="sumService"></span></p>
+                                <p class="mb-1"><strong>Mécanicien :</strong> <span id="sumMechanic"></span></p>
+                                <p class="mb-1"><strong>Date :</strong> <span id="sumDate"></span></p>
+                                <p class="mb-1"><strong>Heure :</strong> <span id="sumTime"></span></p>
+                                <p class="mb-1"><strong>Client :</strong> <span id="sumName"></span></p>
+                                <p class="mb-1"><strong>Courriel :</strong> <span id="sumEmail"></span></p>
+                                <p class="mb-0"><strong>Téléphone :</strong> <span id="sumPhone"></span></p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-secondary w-50" onclick="goToStep(3)">Modifier</button>
+                                <button class="btn btn-primary-custom w-50" onclick="confirmBooking()">Confirmer</button>
+                            </div>
+                        </div>
+                        <div id="confirmationView" style="display:none;">
+                            <div class="confirmation-box">
+                                <div class="check-icon"><i class="bi bi-check-lg"></i></div>
+                                <h4 style="font-weight:700;">Réservation Confirmée !</h4>
+                                <p class="text-muted">Votre demande a été reçue. Vous recevrez un courriel de confirmation sous peu.</p>
+                                <div class="p-3 rounded mb-3" style="background:#f8f9fa; text-align:left;">
+                                    <p class="mb-1"><strong>N° de réservation :</strong> <span id="bookingNumber"></span></p>
+                                    <p class="mb-1"><strong>Service :</strong> <span id="confService"></span></p>
+                                    <p class="mb-1"><strong>Date & Heure :</strong> <span id="confDateTime"></span></p>
+                                    <p class="mb-0"><strong>Mécanicien :</strong> <span id="confMechanic"></span></p>
+                                </div>
+                                <button class="btn btn-primary-custom" onclick="resetBooking()">Nouvelle Réservation</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="location" class="bg-light-custom">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-line"></div>
+            <h2 class="section-title">Nous Trouver</h2>
+            <p class="section-subtitle">Venez nous visiter à notre atelier</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="map-placeholder">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2800.2!2d-75.693!3d45.429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDI1JzQ1LjAiTiA3NcKwNDEnMzQuOCJX!5e0!3m2!1sfr!2sca!4v1" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="info-card mb-3" style="text-align:left;">
+                    <h5><i class="bi bi-geo-alt-fill" style="color:var(--primary);margin-right:8px;font-size:1.2rem;"></i>Adresse</h5>
+                    <p class="mb-0">245 rue Rideau<br>Ottawa, ON K1N 5Y1</p>
+                </div>
+                <div class="info-card mb-3" style="text-align:left;">
+                    <h5><i class="bi bi-clock-fill" style="color:var(--primary);margin-right:8px;font-size:1.2rem;"></i>Heures d'ouverture</h5>
+                    <p class="mb-1">Lundi - Vendredi : 8h00 - 18h00</p>
+                    <p class="mb-0">Samedi : 9h00 - 14h00</p>
+                    <p class="mb-0">Dimanche : Fermé</p>
+                </div>
+                <div class="transit-info d-flex align-items-start">
+                    <i class="bi bi-bus-front mt-1"></i>
+                    <div>
+                        <strong>Transport en commun</strong><br>
+                        <small class="text-muted">Bus 12, 14 - Arrêt Rideau/Dalhousie (2 min à pied)<br>Station Rideau (O-Train Ligne 1) - 5 min à pied</small>
+                    </div>
+                </div>
+                <div class="transit-info d-flex align-items-start">
+                    <i class="bi bi-p-circle mt-1"></i>
+                    <div>
+                        <strong>Stationnement</strong><br>
+                        <small class="text-muted">Stationnement gratuit pour vélos devant l'atelier. Parking auto à 100m sur Dalhousie.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-line"></div>
+            <h2 class="section-title">Questions Fréquentes</h2>
+            <p class="section-subtitle">Réponses aux questions les plus courantes</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion" id="faqAccordion">
+                    <div class="faq-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Combien de temps prend une réparation ?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">La durée varie selon le service. Une inspection prend environ 20 minutes, tandis qu'une mise au point complète peut prendre jusqu'à 1h30. La durée estimée est indiquée sur chaque service.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Acceptez-vous les vélos électriques ?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">Oui, Sophie est notre spécialiste en vélos électriques. Nous pouvons effectuer des réparations mécaniques, des diagnostics de batterie et des mises à jour logicielles.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Puis-je réserver plusieurs services en une seule visite ?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">Oui, vous pouvez combiner plusieurs services lors d'un même rendez-vous. Mentionnez simplement les services supplémentaires dans le champ notes lors de la réservation, et nous ajusterons le temps en conséquence.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Quelle est votre politique d'annulation ?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">Vous pouvez annuler ou modifier votre rendez-vous gratuitement jusqu'à 24 heures avant l'heure prévue. Contactez-nous par téléphone ou courriel pour toute modification.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                Offrez-vous une garantie sur les réparations ?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">Toutes nos réparations sont couvertes par une garantie de 30 jours. Si un problème survient avec la réparation effectuée, revenez nous voir et nous le corrigerons sans frais supplémentaires.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-line"></div>
+            <h2 class="section-title">Contactez-nous</h2>
+            <p class="section-subtitle">Nous sommes là pour répondre à vos questions</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="info-card">
+                    <i class="bi bi-telephone-fill"></i>
+                    <h5>Téléphone</h5>
+                    <p class="mb-0"><a href="tel:6135551234" style="color:var(--primary);text-decoration:none;font-weight:600;">(613) 555-1234</a></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-card">
+                    <i class="bi bi-envelope-fill"></i>
+                    <h5>Courriel</h5>
+                    <p class="mb-0"><a href="mailto:info@velofix.ca" style="color:var(--primary);text-decoration:none;font-weight:600;">info@velofix.ca</a></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-card">
+                    <i class="bi bi-chat-dots-fill"></i>
+                    <h5>Réseaux sociaux</h5>
+                    <div class="social-icons mt-2">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-8">
+                <div class="info-card" style="text-align:left;">
+                    <h5 class="mb-3">Envoyez-nous un message</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Votre nom" style="border-radius:10px;">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="Votre courriel" style="border-radius:10px;">
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" rows="4" placeholder="Votre message..." style="border-radius:10px;"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary-custom">Envoyer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <h6><i class="bi bi-bicycle" style="color:var(--accent);margin-right:6px;"></i>VeloFix</h6>
+                <p style="font-size:0.9rem;">Atelier de réparation de vélos professionnel au cœur d'Ottawa. Service de qualité depuis 2015.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <h6>Navigation</h6>
+                <ul class="list-unstyled" style="font-size:0.9rem;">
+                    <li class="mb-1"><a href="#home">Accueil</a></li>
+                    <li class="mb-1"><a href="#services">Services</a></li>
+                    <li class="mb-1"><a href="#team">Équipe</a></li>
+                    <li class="mb-1"><a href="#booking">Réserver</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h6>Services</h6>
+                <ul class="list-unstyled" style="font-size:0.9rem;">
+                    <li class="mb-1"><a href="#services">Mise au point</a></li>
+                    <li class="mb-1"><a href="#services">Réparation freins</a></li>
+                    <li class="mb-1"><a href="#services">Changement pneus</a></li>
+                    <li class="mb-1"><a href="#services">Inspection</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h6>Contact</h6>
+                <ul class="list-unstyled" style="font-size:0.9rem;">
+                    <li class="mb-1"><i class="bi bi-geo-alt" style="margin-right:6px;"></i>245 rue Rideau, Ottawa</li>
+                    <li class="mb-1"><i class="bi bi-telephone" style="margin-right:6px;"></i>(613) 555-1234</li>
+                    <li class="mb-1"><i class="bi bi-envelope" style="margin-right:6px;"></i>info@velofix.ca</li>
+                    <li class="mb-1"><i class="bi bi-clock" style="margin-right:6px;"></i>Lun-Ven 8h-18h</li>
+                </ul>
+            </div>
+        </div>
+        <hr style="border-color: rgba(255,255,255,0.1); margin-top:2rem;">
+        <div class="text-center" style="font-size:0.85rem;">
+            <p class="mb-0">&copy; 2025 VeloFix. Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="bi bi-arrow-up"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+var currentStep = 1;
+
+function goToStep(step) {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    document.getElementById('step' + step).classList.add('active');
+
+    for (var i = 1; i <= 4; i++) {
+        var dot = document.getElementById('dot' + i);
+        dot.className = 'step-dot ' + (i < step ? 'completed' : (i === step ? 'active' : 'inactive'));
+        if (i < 4) {
+            var line = document.getElementById('line' + i);
+            line.className = 'step-line' + (i < step ? ' completed' : '');
+        }
+    }
+    currentStep = step;
+}
+
+function showSummary() {
+    document.getElementById('sumService').textContent = document.getElementById('serviceSelect').value || '-';
+    document.getElementById('sumMechanic').textContent = document.getElementById('mechanicSelect').value || '-';
+    document.getElementById('sumDate').textContent = document.getElementById('dateInput').value || '-';
+    document.getElementById('sumTime').textContent = document.getElementById('timeSelect').value || '-';
+    document.getElementById('sumName').textContent = (document.getElementById('firstNameInput').value + ' ' + document.getElementById('lastNameInput').value).trim() || '-';
+    document.getElementById('sumEmail').textContent = document.getElementById('emailInput').value || '-';
+    document.getElementById('sumPhone').textContent = document.getElementById('phoneInput').value || '-';
+    goToStep(4);
+}
+
+function confirmBooking() {
+    var num = 'VF-' + Math.floor(10000 + Math.random() * 90000);
+    document.getElementById('bookingNumber').textContent = num;
+    document.getElementById('confService').textContent = document.getElementById('serviceSelect').value;
+    document.getElementById('confDateTime').textContent = document.getElementById('dateInput').value + ' à ' + document.getElementById('timeSelect').value;
+    document.getElementById('confMechanic').textContent = document.getElementById('mechanicSelect').value;
+    document.getElementById('summaryView').style.display = 'none';
+    document.getElementById('confirmationView').style.display = 'block';
+}
+
+function resetBooking() {
+    document.getElementById('serviceSelect').value = '';
+    document.getElementById('mechanicSelect').value = '';
+    document.getElementById('dateInput').value = '';
+    document.getElementById('timeSelect').value = '';
+    document.getElementById('firstNameInput').value = '';
+    document.getElementById('lastNameInput').value = '';
+    document.getElementById('emailInput').value = '';
+    document.getElementById('phoneInput').value = '';
+    document.getElementById('notesInput').value = '';
+    document.getElementById('summaryView').style.display = 'block';
+    document.getElementById('confirmationView').style.display = 'none';
+    goToStep(1);
+}
+
+window.addEventListener('scroll', function() {
+    var nav = document.getElementById('mainNav');
+    var btn = document.getElementById('backToTop');
+    if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+    } else {
+        nav.classList.remove('scrolled');
+    }
+    if (window.scrollY > 400) {
+        btn.classList.add('show');
+    } else {
+        btn.classList.remove('show');
+    }
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            var offset = 80;
+            var pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top: pos, behavior: 'smooth' });
+        }
+        var collapse = document.querySelector('.navbar-collapse.show');
+        if (collapse) {
+            new bootstrap.Collapse(collapse).hide();
+        }
+    });
+});
+
+var today = new Date().toISOString().split('T')[0];
+document.getElementById('dateInput').setAttribute('min', today);
+
+function switchLang(lang) {
+    // placeholder
+}
+</script>
+</body>
+</html>
